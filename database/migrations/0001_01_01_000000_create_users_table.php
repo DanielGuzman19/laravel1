@@ -3,9 +3,10 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Support\Facades\Hash;
+use App\Models\User;
 
-return new class extends Migration
-{
+return new class extends Migration {
     /**
      * Run the migrations.
      */
@@ -18,7 +19,6 @@ return new class extends Migration
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->enum('tipo', ['secretaria', 'doctor'])->nullable();
-            $table->string('especialidad')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });
@@ -37,6 +37,21 @@ return new class extends Migration
             $table->longText('payload');
             $table->integer('last_activity')->index();
         });
+
+        // Crear dos usuarios iniciales
+        $secretaria = User::create([
+            'name' => 'Nuria',
+            'email' => 'nuria@upv.com',
+            'password' => Hash::make('12345678'),
+            'tipo' => 'secretaria',
+        ]);
+
+        $doctor = User::create([
+            'name' => 'Adrian',
+            'email' => 'adrian@upv.com',
+            'password' => Hash::make('12345678'),
+            'tipo' => 'doctor',
+        ]);
     }
 
     /**
@@ -49,3 +64,4 @@ return new class extends Migration
         Schema::dropIfExists('sessions');
     }
 };
+

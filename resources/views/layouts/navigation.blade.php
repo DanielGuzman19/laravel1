@@ -15,18 +15,26 @@
                     @auth
                         @if (auth()->user()->tipo === 'secretaria')
                             <!-- Secretaria Navigation Links -->
-                            <x-nav-link :href="route('paciente')" :active="request()->routeIs('paciente')">
-                                {{ __('Pacientes') }}
+                            <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
+                                {{ __('Dashboard Recepcionista') }}
                             </x-nav-link>
 
-                            <x-nav-link :href="route('pago')" :active="request()->routeIs('pago')">
-                                {{ __('Pagos') }}
+                            <x-nav-link :href="route('registrarPS')" :active="request()->routeIs('registrarPS')">
+                                {{ __('Registrar paciente') }}
                             </x-nav-link>
+                            
+                            <x-nav-link :href="route('agendarCitaS')" :active="request()->routeIs('agendarCitaS')">
+                                {{ __('Agendar citas') }}
+                            </x-nav-link>
+
                             <!-- Add more links for Secretaria -->
                         @elseif (auth()->user()->tipo === 'doctor')
                             <!-- Doctor Navigation Links -->
                                 <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                                     {{ __('Dashboard Doctor') }}
+                                </x-nav-link>
+                                <x-nav-link :href="route('registrarP')" :active="request()->routeIs('registrarP')">
+                                    {{ __('Registrar paciente') }}
                                 </x-nav-link>
                             <!-- Add more links for Doctor -->
                         @endif
