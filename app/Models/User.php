@@ -11,10 +11,6 @@ class User extends Authenticatable
 {
     use HasFactory, Notifiable;
 
-    public function isAdmin()
-    {
-        return $this->tipo === 'admin';
-    }
     /**
      * The attributes that are mass assignable.
      *
@@ -24,7 +20,6 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
-        'tipo'
     ];
 
     /**
@@ -49,5 +44,4 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
-    
 }

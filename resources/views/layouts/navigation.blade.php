@@ -4,41 +4,26 @@
         <div class="flex justify-between h-16">
             <div class="flex">
                 <!-- Logo -->
-                <div class="flex-shrink-0 flex items-center">
+                <div class="shrink-0 flex items-center">
                     <a href="{{ route('dashboard') }}">
                         <x-application-logo class="block h-9 w-auto fill-current text-gray-800 dark:text-gray-200" />
                     </a>
                 </div>
-    
+
                 <!-- Navigation Links -->
-                <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                    @auth
-                        @if (auth()->user()->tipo === 'secretaria')
-                            <!-- Secretaria Navigation Links -->
-                            <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
-                                {{ __('Dashboard Recepcionista') }}
-                            </x-nav-link>
-
-                            <x-nav-link :href="route('registrarPS')" :active="request()->routeIs('registrarPS')">
-                                {{ __('Registrar paciente') }}
-                            </x-nav-link>
-                            
-                            <x-nav-link :href="route('agendarCitaS')" :active="request()->routeIs('agendarCitaS')">
-                                {{ __('Agendar citas') }}
-                            </x-nav-link>
-
-                            <!-- Add more links for Secretaria -->
-                        @elseif (auth()->user()->tipo === 'doctor')
-                            <!-- Doctor Navigation Links -->
-                                <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
-                                    {{ __('Dashboard Doctor') }}
-                                </x-nav-link>
-                                <x-nav-link :href="route('registrarP')" :active="request()->routeIs('registrarP')">
-                                    {{ __('Registrar paciente') }}
-                                </x-nav-link>
-                            <!-- Add more links for Doctor -->
-                        @endif
-                    @endauth
+                <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+                    <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
+                        {{ __('Dashboard') }}
+                    </x-nav-link>
+                    <x-nav-link :href="route('medicamentos.index')" :active="request()->routeIs('medicamentos.index')">
+                        {{ __('Medicamentos') }}
+                    </x-nav-link>
+                    <x-nav-link :href="route('servicios.index')" :active="request()->routeIs('servicios.index')">
+                        {{ __('Servicios') }}
+                    </x-nav-link>
+                    <x-nav-link :href="route('pacientes.index')" :active="request()->routeIs('pacientes.index')">
+                        {{ __('Pacientes') }}
+                    </x-nav-link>
                 </div>
             </div>
 

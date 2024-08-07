@@ -1,72 +1,107 @@
 <?php
+
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Models\Paciente;
+use App\Models\Signo;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class PacienteController extends Controller
 {
-    #registra nuevo paciente
-    public function registro_paciente(Request $request)
+    /**
+     * Display a listing of the resource.
+     */
+    public function index()
     {
-        // Validar los datos del formulario
-        $validatedData = $request->validate([
-            'nombre' => 'required|string|max:255',
-            'apellido_p' => 'required|string|max:255',
-            'apellido_m' => 'required|string|max:255',
-            'age' => 'required|integer',
-            'correo' => 'required|email|unique:pacientes|max:255',
-            'telefono' => 'nullable|string|max:255',
-            'fecha_nacimiento' => 'nullable|date',
-            'genero_biologico' => 'required|in:Masculino,Femenino',
+        return view('pacientes.index', [
+            'pacientes' => DB::table('pacientes')->paginate(15)
         ]);
-    
-        Paciente::create($validatedData);
-        return redirect()->route('paciente');
     }
 
-
-    #muestra el form para editar a los pacientes solo si esta logueado como secretaria
-    public function edit($id) {
-        if (auth()->user()->tipo === 'secretaria') {
-            $paciente = Paciente::findOrFail($id);
-            return view('paciente.edit', compact('paciente'));        
-        }
+    /**
+     * Show the form for creating a new resource.
+     */
+    public function create()
+    {
+        return view('pacientes.create');
     }
-    
-    #Actualiza en la base de datos lo que se cambie en la vista de editar pacietes
-    public function update(Request $request, $id)
+
+    /**
+     * Store a newly created resource in storage.
+     */
+    public function store(Request $request)
     {
         $request->validate([
             'nombre' => 'required|string|max:255',
-            'apellido_p' => 'required|string|max:255',
-            'apellido_m' => 'required|string|max:255',
-            'age' => 'required|integer',
-            'correo' => 'required|email|max:255',
+            'apellidos' => 'required|string|max:255',
             'telefono' => 'required|string|max:15',
-            'fecha_nacimiento' => 'required|date',
-            'genero_biologico' => 'required|string|max:255',
+            'edad' => 'required|integer|min:1|max:120',
+            'genero' => 'required|string',
+            'fecha_nacimiento' => 'required|date'
         ]);
 
-        $paciente = Paciente::findOrFail($id);
+        // guardar el paciente en una variable para poder acceder a su id
+        $paciente = Paciente::create($request->all());
+
+        /*Signo::create([
+            'paciente_id' => $paciente->id,
+            'paciente_id' => null,
+            'temperatura' => null,
+            'pulso' => null,
+            'saturacion_oxigeno' => null,
+            'frecuencia_cardiaca' => null,
+            'peso' => null,
+            'tension_arterial' => null,
+        ]);*/
+
+        return redirect()->route('pacientes.index');
+    }
+
+    /**
+     * Display the specified resource.
+     */
+    public function show(Paciente $paciente)
+    {
+        return view('pacientes.show', [
+            'paciente' => $paciente
+        ]);
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     */
+    public function edit(Paciente $paciente)
+    {
+        return view('pacientes.edit', [
+            'paciente' => $paciente
+        ]);
+    }
+
+    /**
+     * Update the specified resource in storage.
+     */
+    public function update(Request $request, Paciente $paciente)
+    {
+        $request->validate([
+            'nombre' => 'required|string|max:255',
+            'apellidos' => 'required|string|max:255',
+            'telefono' => 'required|string|max:10',
+            'edad' => 'required|integer|min:1|max:120',
+            'genero' => 'required|string',
+            'fecha_nacimiento' => 'required|date'
+        ]);
+
         $paciente->update($request->all());
-
-        return redirect()->route('paciente')->with('success', 'Paciente actualizado correctamente');
+        return redirect()->route('pacientes.index');
     }
 
-    #mostrar la lista de los pacientes solo si esta logueado como tipo secretaria
-    public function paciente(){
-        if (auth()->user()->tipo === 'secretaria') {
-            $pacientes = Paciente::all();
-            return view('paciente.dashboard', ['pacientes' => $pacientes]);
-        }
+    /**
+     * Remove the specified resource from storage.
+     */
+    public function destroy(Paciente $paciente)
+    {
+        $paciente->delete();
+        return redirect()->route('pacientes.index');
     }
-
-    #mostrar el form de registrar nuevos pacientes
-    public function registrar_paciente(){
-        if (auth()->user()->tipo === 'secretaria') {
-            return view('paciente.registrar');
-        }
-    }
-
 }

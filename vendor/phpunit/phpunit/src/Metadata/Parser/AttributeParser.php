@@ -27,6 +27,7 @@ use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\CoversFunction;
 use PHPUnit\Framework\Attributes\CoversMethod;
 use PHPUnit\Framework\Attributes\CoversNothing;
+use PHPUnit\Framework\Attributes\CoversTrait;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\DataProviderExternal;
 use PHPUnit\Framework\Attributes\Depends;
@@ -70,6 +71,7 @@ use PHPUnit\Framework\Attributes\Ticket;
 use PHPUnit\Framework\Attributes\UsesClass;
 use PHPUnit\Framework\Attributes\UsesFunction;
 use PHPUnit\Framework\Attributes\UsesMethod;
+use PHPUnit\Framework\Attributes\UsesTrait;
 use PHPUnit\Framework\Attributes\WithoutErrorHandler;
 use PHPUnit\Metadata\Metadata;
 use PHPUnit\Metadata\MetadataCollection;
@@ -78,6 +80,8 @@ use ReflectionClass;
 use ReflectionMethod;
 
 /**
+ * @no-named-arguments Parameter names are not covered by the backward compatibility promise for PHPUnit
+ *
  * @internal This class is not covered by the backward compatibility promise for PHPUnit
  */
 final readonly class AttributeParser implements Parser
@@ -115,6 +119,13 @@ final readonly class AttributeParser implements Parser
                     assert($attributeInstance instanceof CoversClass);
 
                     $result[] = Metadata::coversClass($attributeInstance->className());
+
+                    break;
+
+                case CoversTrait::class:
+                    assert($attributeInstance instanceof CoversTrait);
+
+                    $result[] = Metadata::coversTrait($attributeInstance->traitName());
 
                     break;
 
@@ -320,6 +331,13 @@ final readonly class AttributeParser implements Parser
                     assert($attributeInstance instanceof UsesClass);
 
                     $result[] = Metadata::usesClass($attributeInstance->className());
+
+                    break;
+
+                case UsesTrait::class:
+                    assert($attributeInstance instanceof UsesTrait);
+
+                    $result[] = Metadata::usesTrait($attributeInstance->traitName());
 
                     break;
 
