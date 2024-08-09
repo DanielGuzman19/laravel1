@@ -22,6 +22,32 @@
     </div>
 @endif
                         <div class="grid gap-6 mb-6 w-1/2 mx-auto">
+                            <h1 class="flex items-center text-5xl font-extrabold dark:text-white">Signos Vitales</h1>
+                            <div>
+                                <label for="temperatura" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Temperatura</label>
+                                <input name="temperatura" type="text" id="" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="" required />
+                            </div>
+                            <div>
+                                <label for="pulso" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Pulso</label>
+                                <input name="pulso" type="text" id="" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="" required />
+                            </div>
+                            <div>
+                                <label for="saturacion_oxigeno" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Saturación de oxígeno</label>
+                                <input name="saturacion_oxigeno" type="text" id="" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="" required />
+                            </div>
+                            <div>
+                                <label for="frecuencia_cardiaca" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Frecuencia cardiaca</label>
+                                <input name="frecuencia_cardiaca" type="text" id="" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="" required />
+                            </div>
+                            <div>
+                                <label for="peso" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Peso</label>
+                                <input name="peso" type="text" id="" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="" required />
+                            </div>
+                            <div>
+                                <label for="tension_arterial" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Tensión arterial</label>
+                                <input name="tension_arterial" type="text" id="" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="" required />
+                            </div>
+
                             <h1 class="flex items-center text-5xl font-extrabold dark:text-white">Datos</h1>
                             <div>
                                 <label for="paciente_id" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Paciente</label>

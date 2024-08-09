@@ -41,19 +41,8 @@ class PacienteController extends Controller
             'fecha_nacimiento' => 'required|date'
         ]);
 
-        // guardar el paciente en una variable para poder acceder a su id
-        $paciente = Paciente::create($request->all());
-
-        /*Signo::create([
-            'paciente_id' => $paciente->id,
-            'paciente_id' => null,
-            'temperatura' => null,
-            'pulso' => null,
-            'saturacion_oxigeno' => null,
-            'frecuencia_cardiaca' => null,
-            'peso' => null,
-            'tension_arterial' => null,
-        ]);*/
+        // $paciente = Paciente::create($request->all());
+        Paciente::create($request->all());
 
         return redirect()->route('pacientes.index');
     }

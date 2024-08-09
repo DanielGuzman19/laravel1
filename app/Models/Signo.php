@@ -10,7 +10,7 @@ class Signo extends Model
     use HasFactory;
 
     protected $fillable = [
-        'paciente_id',
+        'cita_id',
         'temperatura',
         'pulso',
         'saturacion_oxigeno',
@@ -18,4 +18,9 @@ class Signo extends Model
         'peso',
         'tension_arterial',
     ];
+
+    public function cita()
+    {
+        return $this->belongsTo(Cita::class);
+    }
 }

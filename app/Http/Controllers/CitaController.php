@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Cita;
 use App\Models\Medicamento;
 use App\Models\Paciente;
+use App\Models\Signo;
 use App\Models\Tratamiento;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -54,6 +55,14 @@ class CitaController extends Controller
             'medicamento_id' => 'required|array',
             'medicamento_id' => 'required|array',
             'desc_tratamiento' => 'required|array',
+
+            // signos vitales
+            'temperatura' => 'required|string',
+            'pulso' => 'required|string',
+            'saturacion_oxigeno' => 'required|string',
+            'frecuencia_cardiaca' => 'required|string',
+            'peso' => 'required|string',
+            'tension_arterial' => 'required|string',
         ]);
 
         // en caso de que los checkbox no estén marcados, se les asigna una
@@ -76,6 +85,16 @@ class CitaController extends Controller
             'estado' => $estado,
             'motivo' => $request->motivo,
             'retroalimentacion' => $request->retroalimentacion,
+        ]);
+
+        Signo::create([
+            'cita_id' => $cita->id,
+            'temperatura' => $request->temperatura,
+            'pulso' => $request->pulso,
+            'saturacion_oxigeno' => $request->saturacion_oxigeno,
+            'frecuencia_cardiaca' => $request->frecuencia_cardiaca,
+            'peso' => $request->peso,
+            'tension_arterial' => $request->tension_arterial,
         ]);
 
         for ($i = 0; $i < count($fechaTratamientos); $i++) {

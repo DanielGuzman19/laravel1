@@ -11,12 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        // esta tabla solo sirve para guardar los signos vitales de un paciente
-        // todos los campos son strings porque solo es información, no se hará
-        // ningun cálculo
         Schema::create('signos', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('paciente_id')->constrained()->onDelete('cascade');
+            $table->foreignId('cita_id')->constrained()->onDelete('cascade');
             $table->string('temperatura')->nullable();
             $table->string('pulso')->nullable();
             $table->string('saturacion_oxigeno')->nullable();

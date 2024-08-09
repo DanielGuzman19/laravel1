@@ -1,8 +1,14 @@
 <x-app-layout>
     <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-            {{ __('Citas') }}
-        </h2>
+        <div class="flex">
+            <div class="mr-5">
+                <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
+                    {{ __('Citas') }}
+                </h2>
+            </div>
+            <a href="{{ route('citas.create') }}" class="text-gray-900 bg-gradient-to-r from-teal-200 to-lime-200 hover:bg-gradient-to-l hover:from-teal-200 hover:to-lime-200 focus:ring-4 focus:outline-none focus:ring-lime-200 dark:focus:ring-teal-700 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2">Crear</a>
+        </div>
+
     </x-slot>
 
     <div class="py-12">
@@ -11,7 +17,6 @@
                 <div class="p-6 text-gray-900 dark:text-gray-100">
                     <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
                         <div class="grid gap-6 md:grid-cols-2">
-                            <div id="datepicker-inline" inline-datepicker data-date="02/25/2024"></div>
                                 <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
                                     <thead class="text-xs text-gray-700 uppercase dark:text-gray-400">
                                         <tr>
@@ -62,6 +67,3 @@
         </div>
     </div>
 </x-app-layout>
-
-
-<script src="https://cdn.jsdelivr.net/npm/flowbite@2.4.1/dist/flowbite.min.js"></script>
