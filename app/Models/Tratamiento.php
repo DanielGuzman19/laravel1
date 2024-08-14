@@ -14,5 +14,6 @@ class Tratamiento extends Model
         'medicamento_id',
         'desc',
         'fecha',
+        'cantidad'
     ];
 }

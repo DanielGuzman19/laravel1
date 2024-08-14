@@ -26,6 +26,9 @@
                                             <th scope="col" class="px-6 py-3 bg-gray-50 dark:bg-gray-800">
                                                 Estado
                                             </th>
+                                            <th scope="col" class="px-6 py-3 bg-gray-50 dark:bg-gray-800">
+                                                Fecha
+                                            </th>
                                             <th scope="col" class="px-6 py-3">
                                                 Acciones
                                             </th>
@@ -39,6 +42,9 @@
                                             </td>
                                             <td class="px-6 py-4">
                                                 {{ $cita->estado }}
+                                            </td>
+                                            <td class="px-6 py-4">
+                                                {{ $cita->fecha }}
                                             </td>
                                             <td class="px-6">
                                                 <div class="inline-flex rounded-md shadow-s">

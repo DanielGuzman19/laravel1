@@ -62,6 +62,11 @@
                                 <input name="cuenta" type="number" id="" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="" required />
                             </div>
                             <div>
+                                <label for="fecha" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Fecha</label>
+                                <input name="fecha" type="date" id="" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="" required />
+                            </div>
+
+                            <div>
                                 <div class="flex items-center mb-4">
                                     <input name="factura" value="si" id="default-checkbox" type="checkbox" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
                                     <label for="factura" class="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">Factura</label>
@@ -90,10 +95,11 @@
                             <h1 class="flex items-center text-5xl font-extrabold dark:text-white">Tratamiento</h1>
                             <button type="button" id="nuevo" class="py-2.5 px-5 me-2 mb-2 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">+</button>
                             <div class="" id="tratamientos">
-                                <div class="grid gap-6 mb-6 md:grid-cols-3">
+                                <div class="grid gap-6 mb-6 md:grid-cols-4">
                                     <label for="retroalimentacion" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Tomar hasta</label>
                                     <label for="retroalimentacion" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Descipción</label>
                                     <label for="retroalimentacion" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Medicamento</label>
+                                    <label for="retroalimentacion" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Cantidad</label>
                                 </div>
                             </div>
 
@@ -110,14 +116,13 @@
 document.getElementById('nuevo').addEventListener('click', function() {
     // Crear el nuevo div
     var nuevoDiv = document.createElement('div');
-    nuevoDiv.classList.add('grid', 'gap-6', 'mb-6', 'md:grid-cols-3');
+    nuevoDiv.classList.add('grid', 'gap-6', 'mb-6', 'md:grid-cols-4'); // Cambiado a 4 columnas
 
     // Crear el input para la fecha de tratamiento
     var fechaTratamiento = document.createElement('input');
     fechaTratamiento.setAttribute('name', 'fecha_tratamiento[]');
     fechaTratamiento.setAttribute('type', 'date');
     fechaTratamiento.setAttribute('class', 'bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500');
-    fechaTratamiento.setAttribute('placeholder', 'Paracetamil');
     fechaTratamiento.required = true;
 
     // Crear el input para la descripción del tratamiento
@@ -128,6 +133,7 @@ document.getElementById('nuevo').addEventListener('click', function() {
     descTratamiento.setAttribute('placeholder', 'Tomar cada 8h');
     descTratamiento.required = true;
 
+    // Crear el select para los medicamentos
     var selectMedicamento = document.createElement('select');
     selectMedicamento.setAttribute('name', 'medicamento_id[]');
     selectMedicamento.setAttribute('class', 'bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500');
@@ -140,10 +146,19 @@ document.getElementById('nuevo').addEventListener('click', function() {
         selectMedicamento.appendChild(option);
     @endforeach
 
+    // Crear el input para las cantidades
+    var cantidad = document.createElement('input');
+    cantidad.setAttribute('name', 'cantidad[]');
+    cantidad.setAttribute('type', 'number');
+    cantidad.setAttribute('class', 'bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500');
+    cantidad.setAttribute('placeholder', 'Cantidad');
+    cantidad.required = true;
+
     // Añadir los inputs al nuevo div
     nuevoDiv.appendChild(fechaTratamiento);
     nuevoDiv.appendChild(descTratamiento);
     nuevoDiv.appendChild(selectMedicamento);
+    nuevoDiv.appendChild(cantidad); // Añadir el input de cantidad
 
     // Añadir el nuevo div al div con id tratamientos
     document.getElementById('tratamientos').appendChild(nuevoDiv);

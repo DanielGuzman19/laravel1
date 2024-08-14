@@ -45,39 +45,41 @@ class CitaController extends Controller
         $request->validate([
             'paciente_id' => 'required|integer|exists:pacientes,id',
             'cuenta' => 'required|numeric',
-            'factura' => 'nullable|string',
-            'pagado' => 'nullable|string',
-            'estado' => 'nullable|string',
+            'fecha' => 'required|date',
+            'factura' => 'nullable|string|max:255',
+            'pagado' => 'nullable|string|max:255',
+            'estado' => 'nullable|string|max:255',
             'motivo' => 'required|string|max:255',
             'retroalimentacion' => 'required|string|max:255',
 
             // tratamiento
             'medicamento_id' => 'required|array',
-            'medicamento_id' => 'required|array',
             'desc_tratamiento' => 'required|array',
+            'cantidad' => 'required|array',
+            'fecha_tratamiento' => 'required|array',
 
             // signos vitales
-            'temperatura' => 'required|string',
-            'pulso' => 'required|string',
-            'saturacion_oxigeno' => 'required|string',
-            'frecuencia_cardiaca' => 'required|string',
-            'peso' => 'required|string',
-            'tension_arterial' => 'required|string',
+            'temperatura' => 'required|string|max:255',
+            'pulso' => 'required|string|max:255',
+            'saturacion_oxigeno' => 'required|string|max:255',
+            'frecuencia_cardiaca' => 'required|string|max:255',
+            'peso' => 'required|string|max:255',
+            'tension_arterial' => 'required|string|max:255',
         ]);
 
-        // en caso de que los checkbox no estén marcados, se les asigna una
-        // string
+        // en caso de que los checkbox no estén marcados, se les asigna una string
         $pagado = $request->pagado ?? 'No';
         $estado = $request->estado ?? 'Pendiente';
         $factura = $request->factura ?? 'No';
 
-        // arreglos paralelos hehehehe
+        // arreglos paralelos
         $fechaTratamientos = $request->fecha_tratamiento;
         $descTratamientos = $request->desc_tratamiento;
         $medicamentoIds = $request->medicamento_id;
+        $cantidades = $request->cantidad;
 
         $cita = Cita::create([
-            'fecha' => Carbon::now(),
+            'fecha' => $request->fecha,
             'paciente_id' => $request->paciente_id,
             'cuenta' => $request->cuenta,
             'factura' => $factura,
@@ -105,7 +107,21 @@ class CitaController extends Controller
                     'medicamento_id' => $medicamentoIds[$i],
                     'fecha' => $fechaTratamientos[$i],
                     'desc' => $descTratamientos[$i],
+                    'cantidad' => $cantidades[$i],
                 ]);
+
+                // Actualizar la cantidad del medicamento
+                $medicamento = Medicamento::find($medicamentoIds[$i]);
+                if ($medicamento) {
+                    // validar que la cantidad no quede negativa
+                    if ($medicamento->cantidad - $cantidades[$i] >= 0) {
+                        $nuevaCantidad = 0;
+                        $nuevaCantidad = $medicamento->cantidad - $cantidades[$i];
+                        $medicamento->update([
+                            'cantidad' => $nuevaCantidad,
+                        ]);
+                    }
+                }
             }
         }
 

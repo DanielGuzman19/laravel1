@@ -17,6 +17,7 @@ return new class extends Migration
             $table->foreignId('medicamento_id')->constrained()->onDelete('cascade');
             $table->string('desc');
             $table->date('fecha');
+            $table->integer('cantidad');
             $table->timestamps();
         });
     }
