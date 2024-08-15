@@ -11,16 +11,6 @@
                 <div class="p-6 text-gray-900 dark:text-gray-100">
                     <form action="{{ route('citas.store') }}" method="POST" novalidate>
                     @csrf
-
-@if ($errors->any())
-    <div class="alert alert-danger">
-        <ul>
-            @foreach ($errors->all() as $error)
-                <li>{{ $error }}</li>
-            @endforeach
-        </ul>
-    </div>
-@endif
                         <div class="grid gap-6 mb-6 w-1/2 mx-auto">
                             <h1 class="flex items-center text-5xl font-extrabold dark:text-white">Signos Vitales</h1>
                             <div>

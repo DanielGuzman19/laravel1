@@ -141,7 +141,15 @@ class CitaController extends Controller
      */
     public function edit(Cita $cita)
     {
-        //
+        $medicamentos = Medicamento::all();
+        $signos = Signo::where('cita_id', $cita->id)->first();
+        $pacientes = Paciente::all();
+        return view('citas.edit', [
+            'cita' => $cita,
+            'medicamentos' => $medicamentos,
+            'signos' => $signos,
+            'pacientes' => $pacientes,
+        ]);
     }
 
     /**
